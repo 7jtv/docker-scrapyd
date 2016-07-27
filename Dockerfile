@@ -1,5 +1,8 @@
 FROM vimagick/scrapyd
 
-RUN apt-get update -qq && apt-get install -y locales-all -qq
+RUN apt-get update -qq && apt-get install -y locales -qq
+RUN locale-gen
 RUN easy_install --upgrade pytz
 RUN pip install python-slugify pymongo
+
+RUN echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen
