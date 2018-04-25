@@ -3,7 +3,7 @@ scraper:
   #image: vimagick/scrapyd
   build: .
   ports:
-    - "6800"
+    - "6800:6800"
   links:
     - splash:splash001
     - mongodb:mongo001
