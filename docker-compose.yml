@@ -1,0 +1,37 @@
+scraper:
+  container_name: scraper001
+  #image: vimagick/scrapyd
+  build: .
+  ports:
+    - "6800"
+  links:
+    - splash:splash001
+    - mongodb:mongo001
+  volumes:
+    - /docker/data/scrapyd/:/var/lib/scrapyd
+
+splash:
+  container_name: splash001
+  image: scrapinghub/splash
+#  ports:
+#    - "5023"
+#    - "8050"
+#    - "8051"
+
+mongodb:
+  container_name: mongo001
+  image: mongo
+  ports:
+    - "27017:27017"
+  volumes:
+    - /docker/data/mongodb/configdb/:/data/configdb/
+    - /docker/data/mongodb/db/:/data/db/
+mongoexpress:
+  container_name: mongoexpress
+  image: mongo-express
+  ports:
+    - "8081:8081"
+  environment:
+    - ME_CONFIG_MONGODB_SERVER=mongo001
+  links:
+    - mongodb:mongo001
